@@ -1,6 +1,29 @@
 import cv2
 import numpy as np
 
+name = ["green", "red"]
+path = "img//traffic_lights_"
+
+for filename in name:
+    img = cv2.imread(path + str(filename) + ".jpg")
+    
+    hsv = cv2.cvtColor(self.image, cv2.COLOR_BGR2HSV)
+    v = hsv[:, :, 2]
+    cv2.imshow("hsv_" + str(filename), v)
+    
+    red = np.sum(v[50:150, 20:120])
+    yellow = np.sum(v[175:275, 20:120])
+    green = np.sum(v[290:390, 20:120])
+    
+    print(str(red) + "|" + str(yellow) + "|" + str(green))
+    if red >= yellow and red >= green:
+        print("Red")
+    if yellow >= red and yellow >= green:
+        print("Yellow")
+    if green >= yellow and green >= red:
+        print("Green")
+    else:
+        print("Error")
 
 class CVCar:
     lower_red = np.array([0, 120, 70])  # red
